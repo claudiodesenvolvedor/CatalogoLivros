@@ -1,45 +1,11 @@
 // Variáveis Globais
 
 var linhaModelo = $('#linhaModelo');
-
-// const alertPlaceholder = document.getElementById('alertaModal');
-// const appendAlert = (message) => {
-//     const wrapper = document.createElement('div')
-//         wrapper.innerHTML = [
-//             '<div class="modal fade" id="alertaModal" tabindex="-1" aria-labelledby="alertaModalLabel" aria-hidden="true">',
-//             '<div class="modal-dialog ">',
-//             '<div class="modal-content ">',
-//             '<div class="modal-header ">',
-//             `<h5 class="modal-title fs-5" id="alertaModalLabel">${message}</h5>`,
-//             '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>',
-//             '</div></div></div></div>'
-//         ]
-//         .join('');
-//     alertPlaceholder.append(wrapper)};
-
-    // $(function() {
-    //     var alertaModal = document.getElementById('alertaModal');
-    //     var myModal = new bootstrap.Modal(alertaModal);
-
-    //     myModal.show();
-    //  });
-
-
-
-        // `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-            // `<div>${message}</div>`,
-            // '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-            // '</div>'
-
-// const alertTrigger = document.getElementById('liveAlertBtn')
-// if (alertTrigger) {
-// alertTrigger.addEventListener('click', () => {
-// appendAlert('Nice, you triggered this alert message!', 'success')
-// })
-// };
+var dadosLivro = [];
+var autores = [];
+var assuntos = [];
 
 // Funções Globais
-var dadosLivro = [];
 jqAjax("GET", "http://localhost:5035/api/Livro").done(function(data){
     //console.log(data);
     if (data.sucesso){
@@ -63,7 +29,6 @@ jqAjax("GET", "http://localhost:5035/api/Livro").done(function(data){
     console.log('erro');
 })
 
-var assuntos = [];
 jqAjax("GET", "http://localhost:5035/api/Assunto").done(function (data) {
     //console.log(data);
     if (data.sucesso) {
@@ -73,7 +38,6 @@ jqAjax("GET", "http://localhost:5035/api/Assunto").done(function (data) {
     console.log('erro');
 })
 
-var autores = [];
 jqAjax("GET", "http://localhost:5035/api/Autor").done(function (data) {
     //console.log(data);
     if (data.sucesso) {
@@ -195,11 +159,13 @@ function carregaAutoresEAssuntosModal() {
     for (var autor of autores) {
         autoresChecks += '<label><input type="checkbox" class="checkAutor" value="' + autor.autorId + '">' + autor.nome + '</label> ';
     }
+
     $("#modalAutores").html(autoresChecks);
     var assuntosChecks = "";
     for (var assunto of assuntos) {
         assuntosChecks += '<label><input type="checkbox" class="checkAssunto" value="' + assunto.assuntoId + '">' + assunto.descricao + '</label> ';
     }
+
     $("#modalAssuntos").html(assuntosChecks);
     if (cod != 0) {
         var livro = dadosLivro.find(function (x) { return x.livroId == cod });

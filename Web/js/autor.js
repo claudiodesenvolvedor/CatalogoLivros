@@ -2,25 +2,6 @@
 
 var linhaModelo = $('#linhaModelo');
 
-// const alertPlaceholder = document.getElementById('alertaMensagem');
-// const appendAlert = (message, type) => {
-//     const wrapper = document.createElement('div')
-//         wrapper.innerHTML = [
-//     `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-//     `<div>${message}</div>`,
-//     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-//     '</div>']
-//         .join('');
-//     alertPlaceholder
-//         .append(wrapper)};
-
-// const alertTrigger = document.getElementById('liveAlertBtn')
-// if (alertTrigger) {
-// alertTrigger.addEventListener('click', () => {
-// appendAlert('Nice, you triggered this alert message!', 'success')
-// })
-// };
-
 // Funções Globais
 jqAjax("GET", "http://localhost:5035/api/Autor").done(function(data){
     //console.log(data);
@@ -35,11 +16,12 @@ jqAjax("GET", "http://localhost:5035/api/Autor").done(function(data){
             $('#tblAutor').find('tbody').append(tr);
 
         }
-    }else{
-
+    } else {
+        alert(data.mensagem);
     }
-}).fail(function(){
-    console.log('erro');
+}).fail(function (err) {
+    alert("Ocorreu um erro ao carregar os dados da página");
+    //console.log('erro');
 })
 
 
@@ -65,7 +47,7 @@ function salvarDados(){
                 if(data.sucesso){
                     fecharModal();
                     location.reload();
-                    //alert('Dados atualizados com sucesso')
+                    alert('Dados atualizados com sucesso')
                 }else{
                     alert(dados.mensagem);
                 }
