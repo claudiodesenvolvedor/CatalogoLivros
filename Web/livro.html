@@ -12,145 +12,201 @@
     />
   </head>
   <body>
-    <div class="container-sm">
-      <div class="mb-3 row">
-        <label for="lbTitulo" class="col-sm-2 col-form-label">Título</label>
-        <div class="col-sm-6">
-          <input
-            type="text"
-            class="form-control"
-            id="txtTitulo"
-            placeholder="Título"
-            aria-label="default input example"
-          />
-        </div>
+      <div class="container-sm">
+          <nav class="navbar navbar-expand-lg bg-body-tertiary">
+              <div class="container-fluid">
+                  <a class="navbar-brand" href="/">Home</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                          <li class="nav-item">
+                              <a class="nav-link" href="assunto.html">Assunto</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="autor.html">Autor</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="livro.html">Livro</a>
+                          </li>
+                      </ul>
+                      <form class="d-flex" role="search">
+                          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                          <button class="btn btn-outline-success" type="submit">Search</button>
+                      </form>
+                  </div>
+              </div>
+          </nav>
+          <div class="mb-3">
+              <button type="button"
+                      class="btn btn-outline-primary btn-sm btnIncluir"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalModelo">
+                  Inclusão de Novos Dados
+              </button>
+          </div>
+          <div>
+              <table class="table table-hover table-bordered" id="tblLivro">
+                  <thead>
+                      <tr>
+                          <th class="col-sm-10" scope="col">Titulo</th>
+                          <th class="col-sm-10" scope="col">Editora</th>
+                          <th class="col-sm-10" scope="col">Assuntos</th>
+                          <th class="col-sm-10" scope="col">Autores</th>
+                          <th scope="col" colspan="2">Ações</th>
+                      </tr>
+                  </thead>
+                  <tbody class="table-group-divider">
+                      <tr id="linhaModelo" style="display: none">
+                          <td>
+                              <span class="cod" style="display: none"></span>
+                              <span class="titulo"></span>
+                          </td>
+                          <td>
+                              <span class="editora"></span>
+                          </td>
+                          <td>
+                              <span class="assuntos"></span>
+                          </td>
+                          <td>
+                              <span class="autores"></span>
+                          </td>
+                          <td>
+                              <button type="button"
+                                      class="btn btn-outline-primary btn-sm btnEditar"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#modalModelo">
+                                  Editar
+                              </button>
+                          </td>
+                          <td>
+                              <button type="button"
+                                      class="btn btn-outline-danger btn-sm btnExcluir"
+                                      data-bs-toggle="modal"
+                                      data-bs-target="#modalExcluir">
+                                  Excluir
+                              </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
       </div>
-      <div class="mb-3 row">
-        <label for="lbEditora" class="col-sm-2 col-form-label">Editora</label>
-        <div class="col-sm-6">
-          <input
-            type="text"
-            class="form-control"
-            id="txtEditora"
-            placeholder="Editora"
-            aria-label="default input example"
-          />
-        </div>
-      </div>
-      <div class="mb-3 row">
-        <label for="lbEdicao" class="col-sm-2 col-form-label">Edição</label>
-        <div class="col-sm-2">
-          <input
-            type="text"
-            class="form-control"
-            id="txtEdicao"
-            placeholder="Edição"
-            aria-label="default input example"
-          />
-        </div>
-      </div>
-      <div class="mb-3 row">
-        <label for="lbAnoPublic" class="col-sm-2 col-form-label"
-          >Ano Publicação</label
-        >
-        <div class="col-sm-2">
-          <input
-            type="text"
-            class="form-control"
-            id="txtAnoPublic"
-            placeholder="Ano..."
-            aria-label="default input example"
-          />
-        </div>
-      </div>
-      <div class="mb-3 row">
-        <label for="lbPreco" class="col-sm-2 col-form-label">Preço</label>
-        <!-- <div class="input-group col-sm-4"  >
-                <input type="text" id="txtPreco" class="form-control" placeholder="Preço" aria-label="default input example">
-                <span class="input-group-text">$</span>
-                <span class="input-group-text">0.00</span>
-            </div> -->
-        <div class="col-sm-2">
-          <input
-            type="text"
-            class="form-control"
-            id="txtPreco"
-            placeholder="Preço"
-            aria-label="default input example"
-          />
-        </div>
-      </div>
-      <div>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th class="col-sm-2" scope="col-sm-3">Seletor</th>
-              <th class="col-sm-8" scope="col-sm-3">Autor</th>
-              <!-- <th scope="col" colspan="2">Ações</th> -->
-            </tr>
-          </thead>
-          <tbody class="table-group-divider">
-            <tr>
-              <td></td>
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-sm"
-                  href="#"
-                  value="btnEditarAutor"
+
+    <!-- Modal Incluir/Editar -->
+    <div
+      class="modal fade"
+      id="modalModelo"
+      tabindex="-1"
+      aria-labelledby="modalTituloLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1
+              class="modal-title fs-5 modalTituloEditar"
+              id="modalTituloLabel"
+            ></h1>
+            <button
+              type="button"
+              class="btn-close btnCloseModal"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="formModal">
+              <div class="mb-3">
+                <label for="txtTitulo" class="col-sm-3 form-label"
+                  >Título</label
                 >
-                  Editar
-                </button>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-sm"
-                  href="#"
-                  value="btnExcluirAutor"
+                <input type="hidden" id="Cod" value="0" />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtTitulo"
+                  aria-describedby="autorHelp"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="txtEditora" class="col-sm-3 form-label"
+                  >Editora</label
                 >
-                  Excluir
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="txtEditora"
+                  aria-describedby="autorHelp"
+                />
+              </div>
+              <div class="mb-3" id="modalAutores">
+              </div>
+              <div class="mb-3" id="modalAssuntos">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm btnCancelarModal"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-primary btn-sm btnSalvarModal">
+              Salvar
+            </button>
+          </div>
+        </div>
       </div>
-      <div>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th class="col-sm-2" scope="col-sm-3">Seletor</th>
-              <th class="col-sm-10" scope="col">Assunto</th>
-              <!-- <th scope="col" colspan="2">Ações</th> -->
-            </tr>
-          </thead>
-          <tbody class="table-group-divider">
-            <tr>
-              <td></td>
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-sm"
-                  href="#"
-                  value="btnEditarAssunto"
-                >
-                  Editar
-                </button>
-              </td>
-              <td>
-                <button
-                  type="button"
-                  class="btn btn-primary btn-sm"
-                  href="#"
-                  value="btnEditarAssunto"
-                >
-                  Excluir
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    </div>
+
+    <!-- Modal Excluir -->
+    <div
+      class="modal fade"
+      id="modalExcluir"
+      tabindex="-1"
+      aria-labelledby="modalTituloLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1
+              class="modal-title fs-5 modalTituloExcluir"
+              id="modalTituloLabel"
+            >
+              Exclusão de Dados
+            </h1>
+            <button
+              type="button"
+              class="btn-close btnCloseModal"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h7>Deseja excluir os dados?</h7>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm btnCancelarModal"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger btn-sm btnExcluirModal">
+              Excluir
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </body>
