@@ -11,19 +11,19 @@ var linhaModelo = $('#linhaModelo');
 //             '<div class="modal-content ">',
 //             '<div class="modal-header ">',
 //             `<h5 class="modal-title fs-5" id="alertaModalLabel">${message}</h5>`,
-//             '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>', 
+//             '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>',
 //             '</div></div></div></div>'
 //         ]
 //         .join('');
 //     alertPlaceholder.append(wrapper)};
-    
+
     // $(function() {
     //     var alertaModal = document.getElementById('alertaModal');
     //     var myModal = new bootstrap.Modal(alertaModal);
-        
+
     //     myModal.show();
     //  });
-    
+
 
 
         // `<div class="alert alert-${type} alert-dismissible" role="alert">`,
@@ -39,17 +39,21 @@ var linhaModelo = $('#linhaModelo');
 // };
 
 // Funções Globais
-jqAjax("GET", "http://localhost:5035/api/Assunto").done(function(data){
+var dadosLivro = [];
+jqAjax("GET", "http://localhost:5035/api/Livro").done(function(data){
     //console.log(data);
     if (data.sucesso){
         var linha = linhaModelo.html();
-        var dados = data.dados;
-        for(var dado of dados){
+        dadosLivro = data.dados;
+        for (var dado of dadosLivro){
             var tr = $('<tr></tr>');
             tr.html(linha);
-            tr.find('.cod').first().text(dado.codAs);
-            tr.find('.descricao').first().text(dado.descricao);
-            $('#tblAssunto').find('tbody').append(tr);
+            tr.find('.cod').first().text(dado.livroId);
+            tr.find('.titulo').first().text(dado.titulo);
+            tr.find('.editora').first().text(dado.editora);
+            tr.find('.assuntos').first().text(dado.assuntos.map(function (x) { return x.descricao }).join(", "));
+            tr.find('.autores').first().text(dado.autores.map(function (x) { return x.nome }).join(", "));
+            $('#tblLivro').find('tbody').append(tr);
 
         }
     }else{
@@ -59,14 +63,37 @@ jqAjax("GET", "http://localhost:5035/api/Assunto").done(function(data){
     console.log('erro');
 })
 
+var assuntos = [];
+jqAjax("GET", "http://localhost:5035/api/Assunto").done(function (data) {
+    //console.log(data);
+    if (data.sucesso) {
+        assuntos = data.dados;
+    }
+}).fail(function () {
+    console.log('erro');
+})
+
+var autores = [];
+jqAjax("GET", "http://localhost:5035/api/Autor").done(function (data) {
+    //console.log(data);
+    if (data.sucesso) {
+        autores = data.dados;
+    }
+}).fail(function () {
+    console.log('erro');
+})
+
 
 // Funções
 
 // Salva Dados no BD
 function salvarDados(){
     var dados = {
-        "codAs": $("#CodAs").val(),
-        "descricao": $("#txtAssunto").val()
+        "livroId": $("#Cod").val(),
+        "titulo": $("#txtTitulo").val(),
+        "editora": $("#txtEditora").val(),
+        "autores": $(".checkAutor:checked").toArray().map(function (x) { return { autorId: +x.value }; }),
+        "assuntos": $(".checkAssunto:checked").toArray().map(function (x) { return { assuntoId: +x.value }; })
       }
 
       var method = 'PUT';
@@ -76,7 +103,7 @@ function salvarDados(){
 
     jqAjax(
         method, 
-        "http://localhost:5035/api/Assunto", 
+        "http://localhost:5035/api/Livro", 
         JSON.stringify(dados))
             .done(function(data){
                 if(data.sucesso){
@@ -91,7 +118,7 @@ function salvarDados(){
 
 function ExcluirDados(){
 
-    var url = "http://localhost:5035/api/Assunto?codAs=" + $("#CodAs").val();
+    var url = "http://localhost:5035/api/Livro?livroId=" + $("#Cod").val();
     jqAjax(
         'DELETE', 
         url)
@@ -125,22 +152,24 @@ function fecharModal(){
 // Ações dos botões
 
 // Clique do botão editar da grid
-$('#tblAssunto').on('click', '.btnEditar', function(e){
+$('#tblLivro').on('click', '.btnEditar', function(e){
     var linha = $(this).parent().parent();
     var cod = linha.find('.cod').text();
-    var descricao = linha.find('.descricao').text();
+    var livro = dadosLivro.find(function (x) { return x.livroId == cod });
 
     $('#modalTituloLabel').text('Alteração de Dados');
     //$('#modalModelo').text('Alteração de Dados');
-    $('#CodAs').val(cod);
-    $('#txtAssunto').val(descricao);
+    $('#Cod').val(cod);
+    $('#txtTitulo').val(livro.titulo);
+    $('#txtEditora').val(livro.editora);
+    carregaAutoresEAssuntosModal();
     //$('.modal').show();
 
 
 }); 
 
 // Clique do botão excluir da grid
-$('#tblAssunto').on('click', '.btnExcluir', function(e){
+$('#tblLivro').on('click', '.btnExcluir', function(e){
     var linha = $(this).parent().parent();
     var cod = linha.find('.cod').text();
     var descricao = linha.find('.descricao').text();
@@ -154,10 +183,41 @@ $('#tblAssunto').on('click', '.btnExcluir', function(e){
 $('.btnIncluir').on('click', function(e){
     //fecharModal();
     $('#modalTituloLabel').text('Inclusão de Dados');
-    $('#CodAs').val(0);
+    $('#Cod').val(0);
     $('#txtAssunto').val('');
-
+    carregaAutoresEAssuntosModal();
 });
+
+// Carregar Autores e Assuntos no Modal
+function carregaAutoresEAssuntosModal() {
+    var cod = $('#Cod').val();
+    var autoresChecks = "";
+    for (var autor of autores) {
+        autoresChecks += '<label><input type="checkbox" class="checkAutor" value="' + autor.autorId + '">' + autor.nome + '</label> ';
+    }
+    $("#modalAutores").html(autoresChecks);
+    var assuntosChecks = "";
+    for (var assunto of assuntos) {
+        assuntosChecks += '<label><input type="checkbox" class="checkAssunto" value="' + assunto.assuntoId + '">' + assunto.descricao + '</label> ';
+    }
+    $("#modalAssuntos").html(assuntosChecks);
+    if (cod != 0) {
+        var livro = dadosLivro.find(function (x) { return x.livroId == cod });
+        var assuntosDoLivro = livro.assuntos.map(function (x) { return x.assuntoId; });
+        $(".checkAssunto").each(function (i) {
+            if (assuntosDoLivro.indexOf(+$(this).val()) > -1) {
+                $(this).prop("checked", true)
+            }
+        });
+        var autoresDoLivro = livro.autores.map(function (x) { return x.autorId; });
+        $(".checkAutor").each(function (i) {
+            if (autoresDoLivro.indexOf(+$(this).val()) > -1) {
+                $(this).prop("checked", true)
+            }
+        })
+    }
+
+}
 
 // Clique do botão de fechar modal
 $('.btnCancelarModal, .btnCloseModal').on('click', function(e){

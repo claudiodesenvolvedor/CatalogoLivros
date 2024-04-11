@@ -47,7 +47,7 @@ jqAjax("GET", "http://localhost:5035/api/Assunto").done(function(data){
         for(var dado of dados){
             var tr = $('<tr></tr>');
             tr.html(linha);
-            tr.find('.cod').first().text(dado.codAs);
+            tr.find('.cod').first().text(dado.assuntoId);
             tr.find('.descricao').first().text(dado.descricao);
             $('#tblAssunto').find('tbody').append(tr);
 
@@ -65,12 +65,12 @@ jqAjax("GET", "http://localhost:5035/api/Assunto").done(function(data){
 // Salva Dados no BD
 function salvarDados(){
     var dados = {
-        "codAs": $("#CodAs").val(),
+        "assuntoId": $("#CodAs").val(),
         "descricao": $("#txtAssunto").val()
       }
 
       var method = 'PUT';
-      if (dados.codAs == 0){
+    if (dados.assuntoId == 0){
         method = 'POST';
       }
 
@@ -91,7 +91,7 @@ function salvarDados(){
 
 function ExcluirDados(){
 
-    var url = "http://localhost:5035/api/Assunto?codAs=" + $("#CodAs").val();
+    var url = "http://localhost:5035/api/Assunto?assuntoId=" + $("#CodAs").val();
     jqAjax(
         'DELETE', 
         url)

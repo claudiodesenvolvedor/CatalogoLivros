@@ -30,7 +30,7 @@ jqAjax("GET", "http://localhost:5035/api/Autor").done(function(data){
         for(var dado of dados){
             var tr = $('<tr></tr>');
             tr.html(linha);
-            tr.find('.cod').first().text(dado.codAu);
+            tr.find('.cod').first().text(dado.autorId);
             tr.find('.nome').first().text(dado.nome);
             $('#tblAutor').find('tbody').append(tr);
 
@@ -48,12 +48,12 @@ jqAjax("GET", "http://localhost:5035/api/Autor").done(function(data){
 // Salva Dados no BD
 function salvarDados(){
     var dados = {
-        "codAu": $("#CodAu").val(),
+        "autorId": $("#CodAu").val(),
         "nome": $("#txtAutor").val()
       }
 
       var method = 'PUT';
-      if (dados.codAu == 0){
+    if (dados.autorId == 0){
         method = 'POST';
       }
 
