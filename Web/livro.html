@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Livro</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container-sm">
+      <div class="mb-3 row">
+        <label for="lbTitulo" class="col-sm-2 col-form-label">Título</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            id="txtTitulo"
+            placeholder="Título"
+            aria-label="default input example"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="lbEditora" class="col-sm-2 col-form-label">Editora</label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            id="txtEditora"
+            placeholder="Editora"
+            aria-label="default input example"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="lbEdicao" class="col-sm-2 col-form-label">Edição</label>
+        <div class="col-sm-2">
+          <input
+            type="text"
+            class="form-control"
+            id="txtEdicao"
+            placeholder="Edição"
+            aria-label="default input example"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="lbAnoPublic" class="col-sm-2 col-form-label"
+          >Ano Publicação</label
+        >
+        <div class="col-sm-2">
+          <input
+            type="text"
+            class="form-control"
+            id="txtAnoPublic"
+            placeholder="Ano..."
+            aria-label="default input example"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="lbPreco" class="col-sm-2 col-form-label">Preço</label>
+        <!-- <div class="input-group col-sm-4"  >
+                <input type="text" id="txtPreco" class="form-control" placeholder="Preço" aria-label="default input example">
+                <span class="input-group-text">$</span>
+                <span class="input-group-text">0.00</span>
+            </div> -->
+        <div class="col-sm-2">
+          <input
+            type="text"
+            class="form-control"
+            id="txtPreco"
+            placeholder="Preço"
+            aria-label="default input example"
+          />
+        </div>
+      </div>
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="col-sm-2" scope="col-sm-3">Seletor</th>
+              <th class="col-sm-8" scope="col-sm-3">Autor</th>
+              <!-- <th scope="col" colspan="2">Ações</th> -->
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr>
+              <td></td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  href="#"
+                  value="btnEditarAutor"
+                >
+                  Editar
+                </button>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  href="#"
+                  value="btnExcluirAutor"
+                >
+                  Excluir
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th class="col-sm-2" scope="col-sm-3">Seletor</th>
+              <th class="col-sm-10" scope="col">Assunto</th>
+              <!-- <th scope="col" colspan="2">Ações</th> -->
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr>
+              <td></td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  href="#"
+                  value="btnEditarAssunto"
+                >
+                  Editar
+                </button>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-sm"
+                  href="#"
+                  value="btnEditarAssunto"
+                >
+                  Excluir
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+  <script src="js/site.js"></script>
+  <script src="js/livro.js"></script>
+</html>
