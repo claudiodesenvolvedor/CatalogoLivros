@@ -25,11 +25,11 @@ namespace Cadastro_Livros.Controllers
         }
 
         ////GET: api/Livro/GetLivroByAutor/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> GetByAutor(int id)
-        //{
-        //    return Ok(await _livroInterface.GetLivrosByAutor(id));
-        //}
+        [HttpGet("GetByAutor/{id}")]
+        public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> GetByAutor(int id)
+        {
+            return Ok(await _livroInterface.GetLivrosByAutor(id));
+        }
 
         // POST: api/Livro
         [HttpPost]

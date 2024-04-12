@@ -79,7 +79,7 @@ namespace Cadastro_Livros.Services.AutorService
                     .Where(x => x.AutorId == autorId)
                     .ToListAsync();
 
-                if (autor == null)
+                if (autor.Count() == 0)
                 {
                     serviceResponse.Dados = [];
                     serviceResponse.Mensagem = "Dados não encontrado";

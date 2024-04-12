@@ -95,7 +95,7 @@ namespace Cadastro_Livros.Services.LivroService
                     .Include(au => au.Autores)
                     .ToListAsync();
 
-                if (livro == null)
+                if (livro.Count() == 0)
                 {
                     serviceResponse.Dados = [];
                     serviceResponse.Mensagem = "Dados não encontrado";
@@ -173,6 +173,20 @@ namespace Cadastro_Livros.Services.LivroService
                     livro.Edicao = updateLivro.Edicao;
                     livro.AnoPublicacao = updateLivro.AnoPublicacao;
                     livro.Preco = updateLivro.Preco;
+                    livro.Autores = updateLivro.Autores;
+                    livro.Assuntos = updateLivro.Assuntos;
+
+                    //var autores = await _context.Autores
+                    //    .Where(au => updateLivro.Autores.Contains(au))
+                    //    .ToListAsync();
+
+                    //var assuntos = await _context.Assuntos
+                    //    .Where(ass => updateLivro.Assuntos.Contains(ass))
+                    //    .ToListAsync();
+
+                    //livro.Autores = autores;
+                    //livro.Assuntos = assuntos;
+
 
                     _context.Livros.Update(livro);
                     await _context.SaveChangesAsync();
@@ -181,6 +195,8 @@ namespace Cadastro_Livros.Services.LivroService
                         .Include(ass => ass.Assuntos)
                         .Include(au => au.Autores)
                         .ToListAsync();
+
+                    serviceResponse.Mensagem = "Dados alterados com sucesso";
                 }
             }
             catch (Exception ex)
