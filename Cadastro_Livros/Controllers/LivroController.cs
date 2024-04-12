@@ -1,8 +1,6 @@
 ﻿using Cadastro_Livros.Models;
-using Cadastro_Livros.Services.AssuntoService;
 using Cadastro_Livros.Services.LivroService;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol;
 
 namespace Cadastro_Livros.Controllers
 {
@@ -26,12 +24,18 @@ namespace Cadastro_Livros.Controllers
             return Ok(await _livroInterface.GetLivroByCod(livroId));
         }
 
+        ////GET: api/Livro/GetLivroByAutor/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> GetByAutor(int id)
+        //{
+        //    return Ok(await _livroInterface.GetLivrosByAutor(id));
+        //}
+
         // POST: api/Livro
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> CreateAssunto(Livro newLivro)
+        public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> CreateLivro(Livro newLivro)
         {
             return Ok(await _livroInterface.CreateLivro(newLivro));
-
         }
 
         // PUT: api/Livro/5

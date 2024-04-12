@@ -37,6 +37,7 @@ namespace Cadastro_Livros.Services.AutorService
 
             return serviceResponse;
         }
+
         public async Task<ServiceResponse<ICollection<Autor>>> CreateAutor(Autor newAutor)
         {
             ServiceResponse<ICollection<Autor>> serviceResponse = new();
@@ -123,6 +124,7 @@ namespace Cadastro_Livros.Services.AutorService
 
                     serviceResponse.Dados = await _context.Autores
                         .ToListAsync();
+                    serviceResponse.Mensagem = "Dados alterados com sucesso";
                 }
             }
             catch (Exception ex)

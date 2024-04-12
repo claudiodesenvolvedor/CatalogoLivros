@@ -4,10 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cadastro_Livros.Services.LivroService
 {
-    public class LivroService(ApplicationDbContext context) : ILivroInterface
+    public class LivroService : ILivroInterface
     {
-        public readonly ApplicationDbContext _context = context;
-
+        public readonly ApplicationDbContext _context;
+        public LivroService(ApplicationDbContext context)
+        {
+            _context = context; 
+        }
         public async Task<ServiceResponse<ICollection<Livro>>> GetLivros()
         {
             ServiceResponse<ICollection<Livro>> serviceResponse = new();
@@ -106,6 +109,42 @@ namespace Cadastro_Livros.Services.LivroService
             catch (Exception ex)
             {
                 serviceResponse.Dados = [];
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<ICollection<Livro>>> GetLivrosByAutor(int autorId)
+        {
+            ServiceResponse<ICollection<Livro>> serviceResponse = new();
+            try
+            {
+                var autor = new Autor();
+                
+                autor = await _context.Autores
+                    .Where(au => au.AutorId == autorId)
+                    .FirstOrDefaultAsync();
+
+                var livros = await _context.Livros
+                        .Where(l => l.Autores.Contains(autor))
+                        .Include(ass => ass.Assuntos)
+                        .ToListAsync();
+
+                if (livros.Count == 0)
+                {
+                    serviceResponse.Dados = livros;
+                    serviceResponse.Mensagem = "Não existe livros para esse autor";
+                    serviceResponse.Sucesso = false;
+                }
+                else
+                {
+                    serviceResponse.Dados = livros;
+                }
+            }
+            catch (Exception ex)
+            {
                 serviceResponse.Mensagem = ex.Message;
                 serviceResponse.Sucesso = false;
             }
