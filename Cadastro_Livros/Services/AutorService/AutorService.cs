@@ -160,6 +160,8 @@ namespace Cadastro_Livros.Services.AutorService
 
                     serviceResponse.Dados = await _context.Autores
                         .ToListAsync();
+
+                    serviceResponse.Mensagem = "Dados deletados com sucesso.";
                 }
             }
             catch (Exception ex)

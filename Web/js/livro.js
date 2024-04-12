@@ -17,6 +17,7 @@ jqAjax("GET", "http://localhost:5035/api/Livro").done(function(data){
             tr.find('.cod').first().text(dado.livroId);
             tr.find('.titulo').first().text(dado.titulo);
             tr.find('.editora').first().text(dado.editora);
+            tr.find('.preco').first().text(dado.preco);
             tr.find('.assuntos').first().text(dado.assuntos.map(function (x) { return x.descricao }).join(", "));
             tr.find('.autores').first().text(dado.autores.map(function (x) { return x.nome }).join(", "));
             $('#tblLivro').find('tbody').append(tr);
@@ -52,45 +53,44 @@ jqAjax("GET", "http://localhost:5035/api/Autor").done(function (data) {
 
 // Salva Dados no BD
 function salvarDados(){
+
     var dados = {
-        "livroId": $("#Cod").val(),
+        "Cod": $("#Cod").val(),
         "titulo": $("#txtTitulo").val(),
         "editora": $("#txtEditora").val(),
+        "edicao": $("#txtEdicao").val(),
+        "anopublicacao": $("#txtPublicacao").val(),
+        "preco": $("#txtPreco").val(),
         "autores": $(".checkAutor:checked").toArray().map(function (x) { return { autorId: +x.value }; }),
         "assuntos": $(".checkAssunto:checked").toArray().map(function (x) { return { assuntoId: +x.value }; })
       }
 
       var method = 'PUT';
-      if (dados.codAs == 0){
+      if (dados.Cod == 0){
         method = 'POST';
       }
 
-    jqAjax(
-        method, 
-        "http://localhost:5035/api/Livro", 
-        JSON.stringify(dados))
-            .done(function(data){
+    jqAjax(method, "http://localhost:5035/api/Livro", JSON.stringify(dados)).done(function(data){
                 if(data.sucesso){
                     fecharModal();
                     location.reload();
                     //alert('Dados atualizados com sucesso')
+                    alert(data.mensagem);
                 }else{
-                    alert(dados.mensagem);
+                    alert(data.mensagem);
                 }
     });
 }
 
 function ExcluirDados(){
 
-    var url = "http://localhost:5035/api/Livro?livroId=" + $("#Cod").val();
-    jqAjax(
-        'DELETE', 
-        url)
-           .done(function(data){
+    var url = "http://localhost:5035/api/Livro?livroId=" + $("#cod").val();
+    jqAjax("DELETE", "http://localhost:5035/api/Livro?livroId=" + $("#Cod").val()).done(function(data){
                 if(data.sucesso){
                     fecharModal();
                     location.reload();
                     //alert('Dados atualizados com sucesso')
+                    alert(data.mensagem);
                 }else{
                     alert(dados.mensagem);
                 }
@@ -138,7 +138,7 @@ $('#tblLivro').on('click', '.btnExcluir', function(e){
     var cod = linha.find('.cod').text();
     var descricao = linha.find('.descricao').text();
 
-    $('#CodAs').val(cod);
+    $('#Cod').val(cod);
     $('#txtAssunto').val(descricao);
 
 }); 

@@ -56,11 +56,8 @@ function salvarDados(){
 
 function ExcluirDados(){
 
-    var url = "http://localhost:5035/api/Autor?codAu=" + $("#CodAu").val();
-    jqAjax(
-        'DELETE', 
-        url)
-           .done(function(data){
+    var url = "http://localhost:5035/api/Autor?autorId=" + $("#CodAu").val();
+    jqAjax("DELETE", "http://localhost:5035/api/Autor?autorId=" + $("#CodAu").val()).done(function(data){
                 if(data.sucesso){
                     fecharModal();
                     location.reload();

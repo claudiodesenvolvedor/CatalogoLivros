@@ -71,6 +71,8 @@ namespace Cadastro_Livros.Services.LivroService
                         .Include(ass => ass.Assuntos)
                         .Include(au => au.Autores)
                         .ToListAsync();
+
+                    serviceResponse.Mensagem = "Dados Salvos com sucesso!";
                 }
             }
             catch (Exception ex)
@@ -232,6 +234,8 @@ namespace Cadastro_Livros.Services.LivroService
                         .Include(ass => ass.Assuntos)
                         .Include(au => au.Autores)
                         .ToListAsync();
+
+                    serviceResponse.Mensagem = "Dados deletados com sucesso.";
                 }
             }
             catch (Exception ex)
