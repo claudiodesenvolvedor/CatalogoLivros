@@ -49,9 +49,9 @@ namespace Cadastro_Livros.Controllers
 
         // DELETE: api/Autor/5
         [HttpDelete]
-        public async Task<ActionResult<ServiceResponse<ICollection<Autor>>>> DeleteAutor(int codau)
+        public async Task<ActionResult<ServiceResponse<ICollection<Autor>>>> DeleteAutor(int autorId)
         {
-            return Ok(await _autorInterface.DeleteAutor(codau));
+            return Ok(await _autorInterface.DeleteAutor(autorId));
         }
 
     }

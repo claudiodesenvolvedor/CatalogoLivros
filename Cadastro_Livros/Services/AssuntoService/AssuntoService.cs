@@ -124,6 +124,8 @@ namespace Cadastro_Livros.Services.AssuntoService
 
                     serviceResponse.Dados = await _context.Assuntos
                         .ToListAsync();
+
+                    serviceResponse.Mensagem = "Dados alterados com sucesso";
                 }
             }
             catch (Exception ex)
