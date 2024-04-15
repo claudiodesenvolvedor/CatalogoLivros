@@ -32,7 +32,7 @@ function consultaLivrosPorAutor() {
     // http://localhost:5035/api/Livro/GetLivrosByAutor/
     // http://localhost:5035/api/Livro/GetLivroByAutor?autorId=1
     var url = "http://localhost:5035/api/Livro/getbyautor?id="+$('#selAutor').val();
-    jqAjax("GET", "http://localhost:5035/api/Livro").done(function (data) {
+    jqAjax("GET", "http://localhost:5035/api/Livro/GetLivrosByAutor/" + +$('#selAutor').val()).done(function (data) {
             //console.log(data);
             if (data.sucesso) {
                 var linha = linhaModelo.html();
@@ -47,13 +47,15 @@ function consultaLivrosPorAutor() {
                     tr.find('.anoPublicacao').first().text(dado.anoPublicacao);
                     tr.find('.preco').first().text(dado.preco);
 
+                    tr.find('.autores').first().text(dado.autores.map(function (x) { return x.nome }).join(", "));
+                    $('#tblLivro').find('tbody').append(tr);
                     tr.find('.assuntos').first().text(dado.assuntos.map(function (x) { return x.descricao }).join(", "));
                     $('#tblLivro').find('tbody').append(tr);
                 }
                 $('#tblLivro').find('tbody').append($('<tr></tr>'))
             }
             else {
-                console.log(data);
+                alert(data.mensagem);
             }
         });
 

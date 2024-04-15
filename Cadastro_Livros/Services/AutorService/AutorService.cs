@@ -57,6 +57,8 @@ namespace Cadastro_Livros.Services.AutorService
 
                     serviceResponse.Dados = await _context.Autores
                         .ToListAsync();
+
+                    serviceResponse.Mensagem = "Dados incluídos com sucesso";
                 }
             }
             catch (Exception ex)
@@ -161,7 +163,7 @@ namespace Cadastro_Livros.Services.AutorService
                     serviceResponse.Dados = await _context.Autores
                         .ToListAsync();
 
-                    serviceResponse.Mensagem = "Dados deletados com sucesso.";
+                    serviceResponse.Mensagem = "Dados excluídos com sucesso.";
                 }
             }
             catch (Exception ex)

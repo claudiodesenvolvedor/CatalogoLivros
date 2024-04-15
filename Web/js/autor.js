@@ -47,9 +47,9 @@ function salvarDados(){
                 if(data.sucesso){
                     fecharModal();
                     location.reload();
-                    alert('Dados atualizados com sucesso')
+                    alert(data.mensagem);
                 }else{
-                    alert(dados.mensagem);
+                    alert(data.mensagem);
                 }
     });
 }
@@ -61,9 +61,9 @@ function ExcluirDados(){
                 if(data.sucesso){
                     fecharModal();
                     location.reload();
-                    //alert('Dados atualizados com sucesso')
+                    alert(data.mensagem);
                 }else{
-                    alert(dados.mensagem);
+                    alert(data.mensagem);
                 }
     });
 }

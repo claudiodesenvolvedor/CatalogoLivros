@@ -6,7 +6,7 @@ var autores = [];
 var assuntos = [];
 
 // Funções Globais
-jqAjax("GET", "http://localhost:5035/api/Livro").done(function(data){
+jqAjax("GET", "http://localhost:5035/api/Livro/GetLivros").done(function(data){
     //console.log(data);
     if (data.sucesso){
         var linha = linhaModelo.html();
@@ -17,6 +17,8 @@ jqAjax("GET", "http://localhost:5035/api/Livro").done(function(data){
             tr.find('.cod').first().text(dado.livroId);
             tr.find('.titulo').first().text(dado.titulo);
             tr.find('.editora').first().text(dado.editora);
+            tr.find('.edicao').first().text(dado.edicao);
+            tr.find('.anoPublicacao').first().text(dado.anoPublicacao);
             tr.find('.preco').first().text(dado.preco);
             tr.find('.assuntos').first().text(dado.assuntos.map(function (x) { return x.descricao }).join(", "));
             tr.find('.autores').first().text(dado.autores.map(function (x) { return x.nome }).join(", "));
@@ -51,11 +53,11 @@ jqAjax("GET", "http://localhost:5035/api/Autor").done(function (data) {
 
 // Funções
 
-// Salva Dados no BD
+// Salvar Dados no BD
 function salvarDados(){
 
     var dados = {
-        "Cod": $("#Cod").val(),
+        "livroId": $("#Cod").val(),
         "titulo": $("#txtTitulo").val(),
         "editora": $("#txtEditora").val(),
         "edicao": $("#txtEdicao").val(),
@@ -65,12 +67,16 @@ function salvarDados(){
         "assuntos": $(".checkAssunto:checked").toArray().map(function (x) { return { assuntoId: +x.value }; })
       }
 
-      var method = 'PUT';
-      if (dados.Cod == 0){
+    var method = 'PUT';
+    var url = "";
+    if (dados.livroId == 0) {
         method = 'POST';
-      }
+        url = "http://localhost:5035/api/Livro/CreateLivro";
+    } else {
+        url = "http://localhost:5035/api/Livro/UpdateLivro";
+    }
 
-    jqAjax(method, "http://localhost:5035/api/Livro", JSON.stringify(dados)).done(function(data){
+    jqAjax(method, url, JSON.stringify(dados)).done(function(data){
                 if(data.sucesso){
                     fecharModal();
                     location.reload();
@@ -84,8 +90,8 @@ function salvarDados(){
 
 function ExcluirDados(){
 
-    var url = "http://localhost:5035/api/Livro?livroId=" + $("#cod").val();
-    jqAjax("DELETE", "http://localhost:5035/api/Livro?livroId=" + $("#Cod").val()).done(function(data){
+    var url = "http://localhost:5035/api/Livro/DeleteLivro?livroId=" + $("#Cod").val();
+    jqAjax("DELETE", url).done(function(data){
                 if(data.sucesso){
                     fecharModal();
                     location.reload();
@@ -96,7 +102,7 @@ function ExcluirDados(){
                 }
     });
 }
-
+ 
 function fecharModal(){
     $('#formModal').trigger('reset');
     $('#modalTituloLabel').text('');
@@ -126,6 +132,10 @@ $('#tblLivro').on('click', '.btnEditar', function(e){
     $('#Cod').val(cod);
     $('#txtTitulo').val(livro.titulo);
     $('#txtEditora').val(livro.editora);
+    $('#txtEdicao').val(livro.edicao);
+    $('#txtPublicacao').val(livro.anoPublicacao);
+    $('#txtPreco').val(livro.preco);
+
     carregaAutoresEAssuntosModal();
     //$('.modal').show();
 
@@ -148,7 +158,12 @@ $('.btnIncluir').on('click', function(e){
     //fecharModal();
     $('#modalTituloLabel').text('Inclusão de Dados');
     $('#Cod').val(0);
-    $('#txtAssunto').val('');
+    $('#txtTitulo').val('');
+    $('#txtEditora').val('');
+    $('#txtEdicao').val('');
+    $('#txtPublicacao').val('');
+    $('#txtPreco').val('');
+
     carregaAutoresEAssuntosModal();
 });
 

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cadastro_Livros.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Livro/[action]")]
     [ApiController]
     public class LivroController(ILivroInterface LivroInterface) : ControllerBase
     {
@@ -25,11 +25,12 @@ namespace Cadastro_Livros.Controllers
         }
 
         //////GET: api/Livro/GetLivroByAutor/5
-        //[HttpGet("GetByAutor/{id}")]
-        //public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> GetByAutor(int id)
-        //{
-        //    return Ok(await _livroInterface.GetLivrosByAutor(id));
-        //}
+        
+        [HttpGet("{livroId}")]
+        public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> GetLivrosByAutor(int livroId)
+        {
+            return Ok(await _livroInterface.GetLivrosByAutor(livroId));
+        }
 
         // POST: api/Livro
         [HttpPost]
