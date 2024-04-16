@@ -6,6 +6,7 @@ var autores = [];
 var assuntos = [];
 
 // Funções Globais
+
 jqAjax("GET", "http://localhost:5035/api/Livro/GetLivros").done(function(data){
     //console.log(data);
     if (data.sucesso){
@@ -31,6 +32,8 @@ jqAjax("GET", "http://localhost:5035/api/Livro/GetLivros").done(function(data){
 }).fail(function(){
     console.log('erro');
 })
+
+
 
 jqAjax("GET", "http://localhost:5035/api/Assunto").done(function (data) {
     //console.log(data);
@@ -81,7 +84,8 @@ function salvarDados(){
                     fecharModal();
                     location.reload();
                     //alert('Dados atualizados com sucesso')
-                    alert(data.mensagem);
+                    //appendAlert('Teste de alerta sucesso inclusão', 'success');
+                    //alert(data.mensagem);
                 }else{
                     alert(data.mensagem);
                 }
@@ -94,11 +98,13 @@ function ExcluirDados(){
     jqAjax("DELETE", url).done(function(data){
                 if(data.sucesso){
                     fecharModal();
-                    location.reload();
+                    //location.reload();
                     //alert('Dados atualizados com sucesso')
-                    alert(data.mensagem);
+                    appendAlert(data.mensagem, 'success');
+                    //alert(data.mensagem);
                 }else{
-                    alert(dados.mensagem);
+                    appendAlert('Teste de alerta sucesso false', 'success');
+                    //alert(dados.mensagem);
                 }
     });
 }
