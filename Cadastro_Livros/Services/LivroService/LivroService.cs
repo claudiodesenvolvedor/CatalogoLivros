@@ -3,8 +3,6 @@ using Cadastro_Livros.Models;
 using Humanizer;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
-using System.Web.Http.ExceptionHandling;
-using System.Web.Http.Filters;
 using ExceptionFilterAttribute = Microsoft.AspNetCore.Mvc.Filters.ExceptionFilterAttribute;
 
 namespace Cadastro_Livros.Services.LivroService

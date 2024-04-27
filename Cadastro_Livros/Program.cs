@@ -3,10 +3,8 @@ using Cadastro_Livros.DataContext;
 using Cadastro_Livros.Services.AssuntoService;
 using Cadastro_Livros.Services.AutorService;
 using Cadastro_Livros.Services.LivroService;
-using Glimpse.AspNet.Tab;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
-using System.Web.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
