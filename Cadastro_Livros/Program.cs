@@ -45,12 +45,4 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.MapControllers();
 
-//app(routes =>
-// {
-//     Routes.MapHttpRoute(
-//        name: "ActionApi",
-//        routeTemplate: "api/{controller}/{action}/{id}",
-//        defaults: new { id = RouteParameter.Optional }
-//});
-
 app.Run();
