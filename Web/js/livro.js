@@ -1,46 +1,13 @@
 // Variáveis Globais
 
 var linhaModelo = $('#linhaModelo');
-
-// const alertPlaceholder = document.getElementById('alertaModal');
-// const appendAlert = (message) => {
-//     const wrapper = document.createElement('div')
-//         wrapper.innerHTML = [
-//             '<div class="modal fade" id="alertaModal" tabindex="-1" aria-labelledby="alertaModalLabel" aria-hidden="true">',
-//             '<div class="modal-dialog ">',
-//             '<div class="modal-content ">',
-//             '<div class="modal-header ">',
-//             `<h5 class="modal-title fs-5" id="alertaModalLabel">${message}</h5>`,
-//             '<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>',
-//             '</div></div></div></div>'
-//         ]
-//         .join('');
-//     alertPlaceholder.append(wrapper)};
-
-    // $(function() {
-    //     var alertaModal = document.getElementById('alertaModal');
-    //     var myModal = new bootstrap.Modal(alertaModal);
-
-    //     myModal.show();
-    //  });
-
-
-
-        // `<div class="alert alert-${type} alert-dismissible" role="alert">`,
-            // `<div>${message}</div>`,
-            // '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
-            // '</div>'
-
-// const alertTrigger = document.getElementById('liveAlertBtn')
-// if (alertTrigger) {
-// alertTrigger.addEventListener('click', () => {
-// appendAlert('Nice, you triggered this alert message!', 'success')
-// })
-// };
+var dadosLivro = [];
+var autores = [];
+var assuntos = [];
 
 // Funções Globais
-var dadosLivro = [];
-jqAjax("GET", "http://localhost:5035/api/Livro").done(function(data){
+
+jqAjax("GET", "http://localhost:5035/api/Livro/GetLivros").done(function(data){
     //console.log(data);
     if (data.sucesso){
         var linha = linhaModelo.html();
@@ -51,6 +18,9 @@ jqAjax("GET", "http://localhost:5035/api/Livro").done(function(data){
             tr.find('.cod').first().text(dado.livroId);
             tr.find('.titulo').first().text(dado.titulo);
             tr.find('.editora').first().text(dado.editora);
+            tr.find('.edicao').first().text(dado.edicao);
+            tr.find('.anoPublicacao').first().text(dado.anoPublicacao);
+            tr.find('.preco').first().text(dado.preco);
             tr.find('.assuntos').first().text(dado.assuntos.map(function (x) { return x.descricao }).join(", "));
             tr.find('.autores').first().text(dado.autores.map(function (x) { return x.nome }).join(", "));
             $('#tblLivro').find('tbody').append(tr);
@@ -63,7 +33,8 @@ jqAjax("GET", "http://localhost:5035/api/Livro").done(function(data){
     console.log('erro');
 })
 
-var assuntos = [];
+
+
 jqAjax("GET", "http://localhost:5035/api/Assunto").done(function (data) {
     //console.log(data);
     if (data.sucesso) {
@@ -73,7 +44,6 @@ jqAjax("GET", "http://localhost:5035/api/Assunto").done(function (data) {
     console.log('erro');
 })
 
-var autores = [];
 jqAjax("GET", "http://localhost:5035/api/Autor").done(function (data) {
     //console.log(data);
     if (data.sucesso) {
@@ -86,53 +56,59 @@ jqAjax("GET", "http://localhost:5035/api/Autor").done(function (data) {
 
 // Funções
 
-// Salva Dados no BD
+// Salvar Dados no BD
 function salvarDados(){
+
     var dados = {
         "livroId": $("#Cod").val(),
         "titulo": $("#txtTitulo").val(),
         "editora": $("#txtEditora").val(),
+        "edicao": $("#txtEdicao").val(),
+        "anopublicacao": $("#txtPublicacao").val(),
+        "preco": $("#txtPreco").val(),
         "autores": $(".checkAutor:checked").toArray().map(function (x) { return { autorId: +x.value }; }),
         "assuntos": $(".checkAssunto:checked").toArray().map(function (x) { return { assuntoId: +x.value }; })
       }
 
-      var method = 'PUT';
-      if (dados.codAs == 0){
+    var method = 'PUT';
+    var url = "";
+    if (dados.livroId == 0) {
         method = 'POST';
-      }
+        url = "http://localhost:5035/api/Livro/CreateLivro";
+    } else {
+        url = "http://localhost:5035/api/Livro/UpdateLivro";
+    }
 
-    jqAjax(
-        method, 
-        "http://localhost:5035/api/Livro", 
-        JSON.stringify(dados))
-            .done(function(data){
+    jqAjax(method, url, JSON.stringify(dados)).done(function(data){
                 if(data.sucesso){
                     fecharModal();
                     location.reload();
                     //alert('Dados atualizados com sucesso')
+                    //appendAlert('Teste de alerta sucesso inclusão', 'success');
+                    //alert(data.mensagem);
                 }else{
-                    alert(dados.mensagem);
+                    alert(data.mensagem);
                 }
     });
 }
 
 function ExcluirDados(){
 
-    var url = "http://localhost:5035/api/Livro?livroId=" + $("#Cod").val();
-    jqAjax(
-        'DELETE', 
-        url)
-           .done(function(data){
+    var url = "http://localhost:5035/api/Livro/DeleteLivro?livroId=" + $("#Cod").val();
+    jqAjax("DELETE", url).done(function(data){
                 if(data.sucesso){
                     fecharModal();
-                    location.reload();
+                    //location.reload();
                     //alert('Dados atualizados com sucesso')
+                    appendAlert(data.mensagem, 'success');
+                    //alert(data.mensagem);
                 }else{
-                    alert(dados.mensagem);
+                    appendAlert('Teste de alerta sucesso false', 'success');
+                    //alert(dados.mensagem);
                 }
     });
 }
-
+ 
 function fecharModal(){
     $('#formModal').trigger('reset');
     $('#modalTituloLabel').text('');
@@ -162,6 +138,10 @@ $('#tblLivro').on('click', '.btnEditar', function(e){
     $('#Cod').val(cod);
     $('#txtTitulo').val(livro.titulo);
     $('#txtEditora').val(livro.editora);
+    $('#txtEdicao').val(livro.edicao);
+    $('#txtPublicacao').val(livro.anoPublicacao);
+    $('#txtPreco').val(livro.preco);
+
     carregaAutoresEAssuntosModal();
     //$('.modal').show();
 
@@ -174,7 +154,7 @@ $('#tblLivro').on('click', '.btnExcluir', function(e){
     var cod = linha.find('.cod').text();
     var descricao = linha.find('.descricao').text();
 
-    $('#CodAs').val(cod);
+    $('#Cod').val(cod);
     $('#txtAssunto').val(descricao);
 
 }); 
@@ -184,7 +164,12 @@ $('.btnIncluir').on('click', function(e){
     //fecharModal();
     $('#modalTituloLabel').text('Inclusão de Dados');
     $('#Cod').val(0);
-    $('#txtAssunto').val('');
+    $('#txtTitulo').val('');
+    $('#txtEditora').val('');
+    $('#txtEdicao').val('');
+    $('#txtPublicacao').val('');
+    $('#txtPreco').val('');
+
     carregaAutoresEAssuntosModal();
 });
 
@@ -195,11 +180,13 @@ function carregaAutoresEAssuntosModal() {
     for (var autor of autores) {
         autoresChecks += '<label><input type="checkbox" class="checkAutor" value="' + autor.autorId + '">' + autor.nome + '</label> ';
     }
+
     $("#modalAutores").html(autoresChecks);
     var assuntosChecks = "";
     for (var assunto of assuntos) {
         assuntosChecks += '<label><input type="checkbox" class="checkAssunto" value="' + assunto.assuntoId + '">' + assunto.descricao + '</label> ';
     }
+
     $("#modalAssuntos").html(assuntosChecks);
     if (cod != 0) {
         var livro = dadosLivro.find(function (x) { return x.livroId == cod });
