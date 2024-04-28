@@ -1,6 +1,6 @@
 Olá!! Tudo bem?
 
-Me chamo Claudio Oliveira e o objetivo aqui é mostrar a evolução desse código até que se obtenha um código de excelência. 
+Me chamo CLAUDIO OLIVEIRA e o objetivo aqui é mostrar a evolução desse código até que se obtenha um código de excelência. 
 Embora seja um CRUD simples, abordarei padrões de projetos e tecnologias que são utilizadas atualmente em grandes empresas.
 A idéia é que a última parte desse projeto possa servir de ajuda para profissionais da área.  
 
