@@ -11,32 +11,78 @@
 </head>
 <body>
     <div class="container-sm">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">Home</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="assunto.html">Assunto</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="autor.html">Autor</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="livro.html">Livro</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+        <div>
+            <h2>Catalogo de Livros</h2>
+        </div>
+        <div class="mb-4">
+            <nav class="navbar navbar-expand-lg bg-primary " data-bs-theme="dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active livroActivateNav" aria-current="page" href="livro.html">Livro</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="assunto.html">Assunto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="autor.html">Autor</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="index.html">Relatório</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="mb-2">
+            <button type="button"
+                    class="btn btn-outline-primary btn-sm btmostrarModal"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalAlert">
+                Mostrar Modal
+            </button>
+        </div>
+        <div class="modal fade modal-sm"
+             id="modalAlert"
+             tabindex="-1"
+             aria-labelledby="modalTituloLabel"
+             aria-hidden="true"
+             data-bs-backdrop="static"
+             data-bs-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div id="liveAlertPlaceholder"></div>
+                        <button type="button"
+                                class="btn-close btnCloseModal"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
                 </div>
             </div>
-        </nav>
-        <div class="mb-3">
+        </div>
+
+        <!--<div class="md-1 ">
+        <div class="alert alert-danger alert-dismissible fade hidden" id="liveAlertPlaceholder"
+             role="alert">
+            Um exemplo de alerta
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+        </div>
+    </div>-->
+        <!--<button type="button" class="btn btn-primary" id="liveAlertBtn">Show live alert</button>-->
+
+
+
+
+        <div class="mb-2">
             <button type="button"
                     class="btn btn-outline-primary btn-sm btnIncluir"
                     data-bs-toggle="modal"
@@ -48,11 +94,14 @@
             <table class="table table-hover table-bordered" id="tblLivro">
                 <thead>
                     <tr>
-                        <th class="col-sm-10" scope="col">Titulo</th>
-                        <th class="col-sm-10" scope="col">Editora</th>
-                        <th class="col-sm-10" scope="col">Assuntos</th>
-                        <th class="col-sm-10" scope="col">Autores</th>
-                        <th scope="col" colspan="2">Ações</th>
+                        <th class="col-sm-2" scope="col">Título</th>
+                        <th class="col-sm-3" scope="col">Assuntos</th>
+                        <th class="col-sm-3" scope="col">Autores</th>
+                        <th class="col-sm-2" scope="col">Editora</th>
+                        <!--<th class="col-sm-3" scope="col">Edição</th>
+                    <th class="col-sm-3" scope="col">Publicação</th>-->
+                        <th class="col-sm-1" scope="col">Preço</th>
+                        <th scope="col" colspan="1">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -62,13 +111,16 @@
                             <span class="titulo"></span>
                         </td>
                         <td>
-                            <span class="editora"></span>
-                        </td>
-                        <td>
                             <span class="assuntos"></span>
                         </td>
                         <td>
                             <span class="autores"></span>
+                        </td>
+                        <td>
+                            <span class="editora"></span>
+                        </td>
+                        <td>
+                            <span class="preco"></span>
                         </td>
                         <td>
                             <button type="button"
@@ -120,6 +172,7 @@
                                    id="txtTitulo"
                                    aria-describedby="autorHelp" />
                         </div>
+
                         <div class="mb-3">
                             <label for="txtEditora" class="col-sm-3 form-label">Editora</label>
                             <input type="text"
@@ -127,6 +180,28 @@
                                    id="txtEditora"
                                    aria-describedby="autorHelp" />
                         </div>
+                        <div class="mb-3">
+                            <label for="txtEdicao" class="col-sm-3 form-label">Edição</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="txtEdicao"
+                                   aria-describedby="autorHelp" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPublicacao" class="col-sm-3 form-label">Publicação</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="txtPublicacao"
+                                   aria-describedby="autorHelp" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPreco" class="col-sm-3 form-label">Preço</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="txtPreco"
+                                   aria-describedby="autorHelp" />
+                        </div>
+
                         <div class="mb-3" id="modalAutores">
                         </div>
                         <div class="mb-3" id="modalAssuntos">
@@ -168,7 +243,7 @@
                             aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <h7>Deseja excluir os dados?</h7>
+                    <h7>Deseja realmente excluir esses dados?</h7>
                 </div>
                 <div class="modal-footer">
                     <button type="button"

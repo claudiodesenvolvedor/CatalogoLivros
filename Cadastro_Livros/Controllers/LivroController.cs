@@ -1,12 +1,10 @@
 ﻿using Cadastro_Livros.Models;
-using Cadastro_Livros.Services.AssuntoService;
 using Cadastro_Livros.Services.LivroService;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol;
 
 namespace Cadastro_Livros.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Livro/[action]")]
     [ApiController]
     public class LivroController(ILivroInterface LivroInterface) : ControllerBase
     {
@@ -26,12 +24,19 @@ namespace Cadastro_Livros.Controllers
             return Ok(await _livroInterface.GetLivroByCod(livroId));
         }
 
+        //////GET: api/Livro/GetLivroByAutor/5
+        
+        [HttpGet("{livroId}")]
+        public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> GetLivrosByAutor(int livroId)
+        {
+            return Ok(await _livroInterface.GetLivrosByAutor(livroId));
+        }
+
         // POST: api/Livro
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> CreateAssunto(Livro newLivro)
+        public async Task<ActionResult<ServiceResponse<ICollection<Livro>>>> CreateLivro(Livro newLivro)
         {
             return Ok(await _livroInterface.CreateLivro(newLivro));
-
         }
 
         // PUT: api/Livro/5

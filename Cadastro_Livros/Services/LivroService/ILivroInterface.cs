@@ -7,6 +7,7 @@ namespace Cadastro_Livros.Services.LivroService
         Task<ServiceResponse<ICollection<Livro>>> GetLivros();
         Task<ServiceResponse<ICollection<Livro>>> CreateLivro(Livro newLivro);
         Task<ServiceResponse<ICollection<Livro>>> GetLivroByCod(int livroId);
+        Task<ServiceResponse<ICollection<Livro>>> GetLivrosByAutor(int autorId);
         Task<ServiceResponse<ICollection<Livro>>> UpdateLivro(Livro updateLivro);
         Task<ServiceResponse<ICollection<Livro>>> DeleteLivro(int livroId);
 
