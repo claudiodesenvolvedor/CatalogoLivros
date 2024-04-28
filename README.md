@@ -8,8 +8,8 @@ Antes de mais nada, gostaria de avisar que essa primeira parte do projeto é tud
 Ao longo dessa caminhada, veremos como melhoraremos isto.
 
 Esse projeto consiste em um CRUD simples e é todo desenvolvido em C#, na ferramenta Visual Studio 2022 / SQLServer como banco de dados.
-O back-end é uma API de microsserviçoss com seus endpoints para inclusão, consulta, alteração e deleção.
-O fron-end é constituído de paginas em ASP simples com utilização de bootstrap e JQuery.
+O Back-End é uma API de microsserviços com seus endpoints para inclusão, consulta, alteração e deleção.
+O Fron-End é constituído de páginas em ASP simples com utilização de Bootstrap 5 e JQuery.
 
 Então vamos ao código!!!!
 CATALOGO DE LIVROS -- PARTE 1
