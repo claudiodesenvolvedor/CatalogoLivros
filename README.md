@@ -4,7 +4,7 @@ Me chamo CLAUDIO OLIVEIRA e o objetivo aqui é mostrar a evolução desse códig
 Embora seja um CRUD simples, abordarei padrões de projetos e tecnologias que são utilizadas atualmente em grandes empresas.
 A idéia é que a última parte desse projeto possa servir de ajuda para profissionais da área.  
 
-Antes de mais nada, gostaria de avisar que essa primeira parte do projeto é tu o que não se deve fazer dentro de um ambiente profissional.
+Antes de mais nada, gostaria de avisar que essa primeira parte do projeto é tudo que não se deve fazer dentro de um ambiente profissional.
 Ao longo dessa caminhada, veremos como melhoraremos isto.
 
 Esse projeto consiste em um CRUD simples e é todo desenvolvido em C#, na ferramenta Visual Studio 2022 / SQLServer como banco de dados.
